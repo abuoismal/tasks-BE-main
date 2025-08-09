@@ -14,8 +14,13 @@ const swaggerDocument = require('./swagger.json');
 require("dotenv").config();
 const port = process.env.PORT;
 
-// CORS middleware
-app.use(cors()); // 👈 Enable CORS globally
+app.use(cors({
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.options('*', cors());
+
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
